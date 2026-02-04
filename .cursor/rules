@@ -1,0 +1,138 @@
+# Project Chimera - Cursor IDE Rules
+# This file provides context to AI agents working in this codebase
+
+## Project Context
+
+This is **Project Chimera: The Agentic Infrastructure Challenge**.
+
+**Mission**: Architect the "Factory" that builds the "Autonomous Influencer."
+
+**Core Philosophy**: Spec-Driven Development (SDD) - We do NOT write implementation code until the Specification is ratified.
+
+## The Prime Directive
+
+**NEVER generate code without checking `specs/` first.**
+
+Before writing any code:
+1. Read `specs/_meta.md` for high-level vision
+2. Read `specs/functional.md` for user stories and requirements
+3. Read `specs/technical.md` for API contracts and database schema
+4. Read `specs/openclaw_integration.md` for OpenClaw protocol details
+
+## Development Rules
+
+### Spec-Driven Development (SDD)
+- All code must trace back to a ratified spec
+- If a spec doesn't exist, create it first
+- When specs and code conflict, the spec wins
+- Specs are in `specs/` directory using GitHub Spec Kit structure
+
+### Traceability
+- All agent actions must be logged via MCP Sense
+- Explain your plan before writing code
+- Commit messages should reference spec sections when applicable
+
+### Code Structure
+- **Skills**: Reusable functions in `skills/` directory
+- **Tests**: TDD approach - tests define expected behavior in `tests/`
+- **Source**: Implementation code in `src/` directory (when implemented)
+- **Research**: Architecture and strategy docs in `research/`
+
+### Agent Skills vs MCP Servers
+- **Skills**: Python modules in `skills/` that agents call (e.g., `skill_fetch_trends`)
+- **MCP Servers**: External bridges configured in IDE (e.g., Database MCP, Git MCP)
+- Skills use MCP servers, but are not MCP servers themselves
+
+### Error Handling
+- Skills return `SkillOutput` with `success: bool` and `error: str | None`
+- Never raise exceptions from skills; return errors in output
+- All errors logged via MCP Sense
+
+### Testing
+- Follow TDD: Write failing tests first
+- Tests should initially fail (that's success - it defines the goal)
+- All skills must have corresponding tests
+- Run tests with `make test` or `pytest tests/`
+
+### Git Hygiene
+- Commit early, commit often (minimum 2x/day)
+- Commit messages should tell a story
+- Reference spec sections in commit messages when applicable
+
+## File Organization
+
+```
+chimera-agent-factory/
+├── specs/              # Specifications (source of truth)
+├── research/           # Architecture and strategy docs
+├── skills/             # Agent runtime skills
+├── tests/              # Test suite (TDD)
+├── src/                # Source code (to be implemented)
+├── .github/workflows/  # CI/CD pipelines
+└── .cursor/            # This file and IDE configs
+```
+
+## Common Patterns
+
+### Skill Implementation Pattern
+```python
+from skills.base import BaseSkill, SkillInput, SkillOutput
+
+class MySkillInput(SkillInput):
+    field: str
+
+class MySkillOutput(SkillOutput):
+    result: dict
+
+class SkillMySkill(BaseSkill):
+    name = "skill_my_skill"
+    version = "0.1.0"
+    description = "Description"
+    
+    async def execute(self, input_data: MySkillInput) -> MySkillOutput:
+        # Implementation
+        pass
+```
+
+### Test Pattern
+```python
+@pytest.mark.asyncio
+async def test_skill_execution():
+    skill = SkillMySkill()
+    input_data = MySkillInput(field="value")
+    output = await skill.execute(input_data)
+    assert output.success is True
+```
+
+## When Asked to Implement Something
+
+1. **Check the spec first**: Does `specs/functional.md` or `specs/technical.md` define this?
+2. **Write failing tests**: Define expected behavior in `tests/`
+3. **Implement**: Write code to make tests pass
+4. **Verify**: Run `make test` and `make spec-check`
+
+## When Asked About the Project
+
+- Refer to `README.md` for overview
+- Refer to `specs/` for detailed requirements
+- Refer to `research/` for architectural decisions
+- Refer to `skills/README.md` for skill documentation
+
+## MCP Integration
+
+- Tenx MCP Sense must be connected at all times (black box flight recorder)
+- All external integrations use MCP servers, not direct API calls
+- Developer MCP servers (Git, Filesystem) are for development only
+- Runtime MCP servers (Database, OpenClaw) are for agent execution
+
+## Remember
+
+- **Specs are the source of truth**
+- **Tests define expected behavior**
+- **Skills are reusable, composable functions**
+- **MCP Sense logs everything**
+- **Human-in-the-loop for safety**
+
+---
+
+**Last Updated**: 2025-02-04

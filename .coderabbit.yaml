@@ -1,0 +1,94 @@
+# CodeRabbit AI Review Configuration
+# This file configures AI code review policies for Project Chimera
+
+# General settings
+language: python
+review_type: full
+
+# Review focus areas
+focus_areas:
+  - spec_alignment
+  - security
+  - code_quality
+  - test_coverage
+  - documentation
+
+# Spec alignment checks
+spec_alignment:
+  enabled: true
+  spec_directory: "specs/"
+  check_on:
+    - pull_request
+    - commit
+  rules:
+    - "Code must align with specs/functional.md user stories"
+    - "API contracts must match specs/technical.md"
+    - "Database schema must match specs/technical.md ERD"
+    - "OpenClaw integration must follow specs/openclaw_integration.md"
+
+# Security checks
+security:
+  enabled: true
+  checks:
+    - hardcoded_secrets
+    - sql_injection
+    - xss_vulnerabilities
+    - dependency_vulnerabilities
+    - insecure_random
+  severity_levels:
+    - critical
+    - high
+    - medium
+
+# Code quality checks
+code_quality:
+  enabled: true
+  checks:
+    - complexity
+    - duplication
+    - maintainability
+    - naming_conventions
+  thresholds:
+    max_complexity: 10
+    max_duplication: 5
+
+# Test coverage requirements
+test_coverage:
+  enabled: true
+  minimum_coverage: 70
+  require_tests_for:
+    - new_features
+    - bug_fixes
+    - refactoring
+
+# Documentation requirements
+documentation:
+  enabled: true
+  require_docstrings: true
+  require_type_hints: true
+  check_readme_updates: true
+
+# Custom review prompts
+custom_prompts:
+  - "Check if this code follows the Spec-Driven Development (SDD) principle"
+  - "Verify that all external integrations use MCP servers, not direct API calls"
+  - "Ensure all agent actions are logged via MCP Sense"
+  - "Check that skills follow the BaseSkill interface defined in skills/base.py"
+  - "Verify error handling returns SkillOutput with success/error, not exceptions"
+
+# File patterns to review
+include_patterns:
+  - "src/**/*.py"
+  - "skills/**/*.py"
+  - "tests/**/*.py"
+
+# File patterns to ignore
+ignore_patterns:
+  - "**/__pycache__/**"
+  - "**/*.pyc"
+  - "**/migrations/**"
+
+# Review comment style
+comment_style: constructive
+suggest_changes: true
+explain_reasoning: true
