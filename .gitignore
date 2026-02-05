@@ -20,12 +20,17 @@ wheels/
 .installed.cfg
 *.egg
 MANIFEST
+pip-log.txt
+pip-delete-this-directory.txt
 
 # Virtual environments
 venv/
 env/
 ENV/
 .venv
+.venv*/
+env.bak/
+venv.bak/
 
 # IDE
 .vscode/
@@ -33,32 +38,75 @@ ENV/
 *.swp
 *.swo
 *~
+.project
+.pydevproject
+.settings/
+*.sublime-project
+*.sublime-workspace
 
 # Environment variables
 .env
 .env.local
+.env.*.local
+*.env
 
 # Testing
 .pytest_cache/
 .coverage
+.coverage.*
 htmlcov/
 .tox/
+.hypothesis/
+*.cover
+.cache
+nosetests.xml
+coverage.xml
+*.coveragerc
 
 # MCP
 .mcp/
+mcp_cache/
 
 # Docker
 .dockerignore
+docker-compose.override.yml
 
 # OS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+desktop.ini
 
 # Logs
 *.log
 logs/
+*.log.*
 
 # Temporary files
 tmp/
 temp/
 *.tmp
+*.bak
+*.swp
+*~
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Project specific
+*.db
+*.sqlite
+*.sqlite3

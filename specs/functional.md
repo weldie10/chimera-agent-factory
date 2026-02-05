@@ -285,4 +285,4 @@ This document defines the functional requirements for Project Chimera from a use
 
 **Status**: ✅ Draft Complete  
 **Last Updated**: 2025-02-04  
-**Owner**: FDE Trainee Team
+**Author**: Weldeyohans Nigus

@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = {text = "MIT"}
 authors = [
-    {name = "Project Chimera Team"}
+    {name = "Weldeyohans Nigus"}
 ]
 keywords = ["ai", "agents", "influencer", "autonomous", "mlops"]
 classifiers = [

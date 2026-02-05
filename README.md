@@ -1,7 +1,9 @@
 # Project Chimera: The Agentic Infrastructure Challenge
 
 > **Role**: Forward Deployed Engineer (FDE) Trainee  
-> **Mission**: Architect the "Factory" that builds the "Autonomous Influencer."
+> **Mission**: Architect the "Factory" that builds the "Autonomous Influencer."  
+> **Author**: Weldeyohans Nigus  
+> **Repository**: [https://github.com/weldie10/chimera-agent-factory](https://github.com/weldie10/chimera-agent-factory)
 
 ## Overview
 
@@ -39,20 +41,28 @@ chimera-agent-factory/
 │   └── openclaw_integration.md  # OpenClaw network integration plan
 ├── research/          # Architecture and strategy documents
 │   ├── architecture_strategy.md
+│   ├── research_summary.md
 │   └── tooling_strategy.md
 ├── skills/            # Agent runtime skills (capability packages)
 │   ├── README.md
-│   └── [skill modules]
+│   ├── base.py        # Base skill classes
+│   └── __init__.py
 ├── tests/             # Test-Driven Development (TDD) tests
 │   ├── test_trend_fetcher.py
 │   └── test_skills_interface.py
 ├── src/               # Source code (to be implemented)
-├── .github/
-│   └── workflows/     # CI/CD pipelines
+├── .github/workflows/ # CI/CD pipelines
+│   └── main.yml
 ├── .cursor/           # Cursor IDE rules and context
+│   └── rules
 ├── Dockerfile         # Containerization
 ├── Makefile          # Standardized commands
-└── pyproject.toml    # Python project configuration
+├── pyproject.toml    # Python project configuration
+├── .gitignore        # Git ignore patterns
+├── .coderabbit.yaml  # AI code review policies
+├── README.md         # This file
+├── CLAUDE.md         # AI agent context document
+└── DAY1_SUBMISSION.md # Day 1 deliverables report
 ```
 
 ## Quick Start
@@ -72,6 +82,9 @@ make setup
 # Run tests (should fail initially - TDD approach)
 make test
 
+# Run tests in Docker
+make docker-test
+
 # Check spec alignment
 make spec-check
 ```
@@ -86,14 +99,16 @@ make spec-check
 ## Key Commands
 
 - `make setup` - Install dependencies
-- `make test` - Run tests in Docker
+- `make test` - Run tests locally
+- `make docker-test` - Run tests in Docker container
 - `make spec-check` - Verify code aligns with specs
-- `make lint` - Run linters
-- `make format` - Format code
+- `make lint` - Run linters (ruff, mypy)
+- `make format` - Format code (black, ruff)
+- `make clean` - Clean build artifacts
 
-## Project Status - Day 1 (February 4, 2025)
+## Project Status
 
-✅ **Day 1 Deliverables Complete**:
+✅ **Day 1 Deliverables Complete** (February 4, 2026):
 - Research summary and analysis (`research/research_summary.md`)
 - Architecture strategy document (`research/architecture_strategy.md`)
 - Master specifications (`specs/`)
@@ -108,6 +123,13 @@ make spec-check
 - Connect OpenClaw MCP server
 - Complete agent orchestration
 - Full system integration
+
+## Documentation
+
+- **Specifications**: See `specs/` directory for complete project specifications
+- **Architecture**: See `research/architecture_strategy.md` for architectural decisions
+- **Skills**: See `skills/README.md` for skill development guidelines
+- **Day 1 Report**: See `DAY1_SUBMISSION.md` for Day 1 deliverables summary
 
 ## License
 

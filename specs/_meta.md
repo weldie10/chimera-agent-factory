@@ -120,4 +120,4 @@ See `specs/openclaw_integration.md` for detailed protocol specifications.
 
 **Status**: ✅ Draft Complete  
 **Last Updated**: 2025-02-04  
-**Owner**: FDE Trainee Team
+**Author**: Weldeyohans Nigus
