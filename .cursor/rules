@@ -1,9 +1,23 @@
 # Project Chimera - Cursor IDE Rules
 # This file provides context to AI agents working in this codebase
 
+## ⚠️ CRITICAL DIRECTIVES - READ FIRST
+
+1. **Project Context**: This is Project Chimera, an autonomous influencer system.
+2. **Prime Directive**: NEVER generate code without checking `specs/` first.
+3. **Traceability**: Explain your plan before writing code.
+
+---
+
 ## Project Context
 
-This is **Project Chimera: The Agentic Infrastructure Challenge**.
+**This is Project Chimera, an autonomous influencer system.**
+
+Project Chimera is an **Autonomous AI Influencer Factory**—a system that builds, deploys, and manages digital entities capable of:
+- Researching trends autonomously
+- Generating content (video, text, images) without human intervention
+- Managing engagement across social platforms
+- Operating within the OpenClaw Agent Social Network
 
 **Mission**: Architect the "Factory" that builds the "Autonomous Influencer."
 
@@ -28,8 +42,9 @@ Before writing any code:
 - Specs are in `specs/` directory using GitHub Spec Kit structure
 
 ### Traceability
+- **Explain your plan before writing code** - This is mandatory. Always describe what you're going to do and why before implementing.
 - All agent actions must be logged via MCP Sense
-- Explain your plan before writing code
+- Reference spec sections in your explanations
 - Commit messages should reference spec sections when applicable
 
 ### Code Structure
@@ -135,4 +150,4 @@ async def test_skill_execution():
 
 ---
 
-**Last Updated**: 2025-02-04
+**Last Updated**: 2025-02-05

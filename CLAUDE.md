@@ -2,6 +2,14 @@
 
 > **For AI Agents (Claude, Cursor AI, etc.) working in this codebase**
 
+## ⚠️ CRITICAL DIRECTIVES - READ FIRST
+
+1. **Project Context**: This is Project Chimera, an autonomous influencer system.
+2. **Prime Directive**: NEVER generate code without checking `specs/` first.
+3. **Traceability**: Explain your plan before writing code.
+
+---
+
 ## Who You Are
 
 You are an AI coding assistant helping to build **Project Chimera: The Agentic Infrastructure Challenge**.
@@ -10,7 +18,9 @@ You are NOT here to "vibe code" a quick prototype. You are here to act as a **Le
 
 ## The Project
 
-**Project Chimera** is an **Autonomous AI Influencer Factory**—a system that builds, deploys, and manages digital entities capable of:
+**This is Project Chimera, an autonomous influencer system.**
+
+Project Chimera is an **Autonomous AI Influencer Factory**—a system that builds, deploys, and manages digital entities capable of:
 - Researching trends autonomously
 - Generating content (video, text, images) without human intervention
 - Managing engagement across social platforms
@@ -25,7 +35,7 @@ You are NOT here to "vibe code" a quick prototype. You are here to act as a **Le
 - When specs and code conflict, **the spec wins**
 
 ### 2. Traceability
-- Explain your plan before writing code
+- **Explain your plan before writing code** - This is mandatory. Always describe what you're going to do and why before implementing.
 - All agent actions must be logged via MCP Sense (this is mandatory)
 - Reference spec sections in your explanations
 
@@ -186,4 +196,4 @@ Your code is successful when:
 
 **Remember**: Specs are the source of truth. Tests define expected behavior. Your job is to bridge the gap between intent (specs) and implementation (code).
 
-**Last Updated**: 2025-02-04
+**Last Updated**: 2026-02-05
