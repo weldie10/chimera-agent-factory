@@ -67,22 +67,24 @@ class SkillMySkill(BaseSkill):
 
 **Purpose**: Fetch trending topics from social platforms
 
-**Input Contract**:
+**Input Contract** (See `specs/technical.md` for complete Pydantic model):
 ```python
 class FetchTrendsInput(SkillInput):
-    platforms: list[str]  # ["youtube", "tiktok", "twitter"]
-    categories: list[str] = []  # Optional filtering
-    time_range: str = "24h"  # "24h" | "7d" | "30d"
-    max_results: int = 50
+    platforms: List[Literal["youtube", "tiktok", "twitter"]]  # Required
+    categories: List[str] = []  # Optional filtering
+    time_range: Literal["24h", "7d", "30d"] = "24h"  # Optional, default: "24h"
+    max_results: int = Field(default=50, ge=1, le=1000)  # Optional, default: 50
 ```
 
-**Output Contract**:
+**Output Contract** (See `specs/technical.md` for complete Pydantic model):
 ```python
 class FetchTrendsOutput(SkillOutput):
-    trends: list[TrendData]
-    metadata: dict
-    # success and error inherited from SkillOutput
+    trends: List[TrendData] = []  # List of trend data objects
+    metadata: Optional[FetchTrendsMetadata] = None  # Fetch metadata
+    # success: bool and error: Optional[str] inherited from SkillOutput
 ```
+
+**Complete Schema Reference**: See `specs/technical.md` section "Trend Fetcher API" for full Pydantic models including `TrendData`, `EngagementMetrics`, and `FetchTrendsMetadata`.
 
 **MCP Dependencies**:
 - Platform-specific MCP servers (YouTube, TikTok, Twitter)
@@ -95,21 +97,23 @@ class FetchTrendsOutput(SkillOutput):
 
 **Purpose**: Download videos from social platforms
 
-**Input Contract**:
+**Input Contract** (See `specs/technical.md` for complete Pydantic model):
 ```python
 class DownloadVideoInput(SkillInput):
-    source_url: str  # Required
-    platform: str  # "youtube" | "tiktok" | "twitter"
-    quality: str = "medium"  # "high" | "medium" | "low"
+    source_url: HttpUrl  # Required - URL of the video to download
+    platform: Literal["youtube", "tiktok", "twitter"]  # Required
+    quality: Literal["high", "medium", "low"] = "medium"  # Optional, default: "medium"
 ```
 
-**Output Contract**:
+**Output Contract** (See `specs/technical.md` for complete Pydantic model):
 ```python
 class DownloadVideoOutput(SkillOutput):
-    local_path: str | None  # If success
-    metadata: VideoMetadata | None
-    # success and error inherited from SkillOutput
+    local_path: Optional[str] = None  # Local file path if successful
+    metadata: Optional[VideoMetadata] = None  # Video metadata (duration, resolution, format, etc.)
+    # success: bool and error: Optional[str] inherited from SkillOutput
 ```
+
+**Complete Schema Reference**: See `specs/technical.md` section "Video Download API" for full Pydantic models including `VideoMetadata`.
 
 **MCP Dependencies**:
 - Platform-specific download MCP servers
@@ -122,22 +126,25 @@ class DownloadVideoOutput(SkillOutput):
 
 **Purpose**: Transcribe audio from video files
 
-**Input Contract**:
+**Input Contract** (See `specs/technical.md` for complete Pydantic model):
 ```python
 class TranscribeAudioInput(SkillInput):
-    video_path: str  # Required
-    language: str | None = None  # Auto-detect if None
-    include_timestamps: bool = True
+    video_path: str  # Required - Path to video file
+    language: Optional[str] = None  # Optional - Language code (ISO 639-1) or 'auto'
+    include_timestamps: bool = True  # Optional, default: True
 ```
 
-**Output Contract**:
+**Output Contract** (See `specs/technical.md` for complete Pydantic model):
 ```python
 class TranscribeAudioOutput(SkillOutput):
-    transcript: str
-    segments: list[TranscriptSegment]
-    language: str  # Detected language
-    # success and error inherited from SkillOutput
+    transcript: Optional[str] = None  # Full transcript text
+    segments: List[TranscriptSegment] = []  # Timestamped segments
+    language: str  # Detected language code
+    metadata: Optional[TranscriptionMetadata] = None  # Transcription metadata
+    # success: bool and error: Optional[str] inherited from SkillOutput
 ```
+
+**Complete Schema Reference**: See `specs/technical.md` section "Transcription API" for full Pydantic models including `TranscriptSegment` and `TranscriptionMetadata`.
 
 **MCP Dependencies**:
 - Transcription service MCP (e.g., OpenAI Whisper MCP)
@@ -316,6 +323,18 @@ else:
 
 ---
 
-**Status**: 🚧 Specification Complete, Implementation Pending  
-**Last Updated**: 2025-02-04  
+## Contract Completeness
+
+All skill Input/Output contracts are defined in detail in `specs/technical.md` with:
+- Complete Pydantic models with field descriptions
+- Type validation rules
+- Default values and constraints
+- Nested model definitions (e.g., `TrendData`, `VideoMetadata`, `TranscriptSegment`)
+
+**Reference**: Always check `specs/technical.md` for the complete, executable API contracts before implementing skills.
+
+---
+
+**Status**: ✅ Specification Complete, Structure Ready, Implementation Pending  
+**Last Updated**: 2025-02-05  
 **Author**: Weldeyohans Nigus
