@@ -191,6 +191,34 @@ Each Chimera agent has a unique identity in the OpenClaw network:
 - Agent announces capabilities on startup
 - Agent updates status when capabilities change
 
+**Detailed Implementation Plan**:
+
+1. **Initial Announcement on Startup**:
+   ```python
+   # On agent initialization
+   await skill_openclaw_announce.execute(OpenClawAnnounceInput(
+       agent_id="chimera-research-001",
+       capabilities=[
+           Capability(
+               skill_name="skill_fetch_trends",
+               description="Fetches trending topics from social platforms",
+               rate_limit="100/hour"
+           )
+       ],
+       status="available"
+   ))
+   ```
+
+2. **Status Updates**:
+   - When agent becomes busy: Update status to "busy"
+   - When agent completes work: Update status to "available"
+   - On graceful shutdown: Update status to "offline"
+   - On error recovery: Re-announce with "available" status
+
+3. **Capability Updates**:
+   - When new skills are added: Re-announce with updated capabilities
+   - When skills are deprecated: Re-announce with removed capabilities
+
 ### Phase 2: Discovery (Post-Day 3)
 - Implement `skill_openclaw_discover` skill
 - Agent can query OpenClaw network for other agents
@@ -206,6 +234,35 @@ Each Chimera agent has a unique identity in the OpenClaw network:
 - Implement periodic status updates
 - Agent broadcasts health metrics
 - Agent updates status based on workload
+
+**Detailed Status Broadcasting Plan**:
+
+1. **Periodic Updates**:
+   - Broadcast status every 30 seconds when active
+   - Broadcast status immediately on state change (available → busy, busy → available)
+   - Include health metrics in each broadcast
+
+2. **Status Transition Rules**:
+   - `available`: Agent is idle and ready to accept requests
+   - `busy`: Agent is processing requests (current_operations > 0)
+   - `offline`: Agent is shutting down or unreachable
+
+3. **Health Metrics Collection**:
+   ```python
+   health_metrics = {
+       "cpu_usage": get_cpu_usage(),
+       "memory_usage": get_memory_usage(),
+       "error_rate": calculate_error_rate(),
+       "active_operations": count_active_operations(),
+       "queue_length": get_queue_length()
+   }
+   ```
+
+4. **Status Update Triggers**:
+   - On request received: Update to "busy" if was "available"
+   - On request completed: Update to "available" if queue is empty
+   - On error threshold exceeded: Update to "offline" and alert
+   - On resource exhaustion: Update to "busy" and reject new requests
 
 ## MCP Integration
 
