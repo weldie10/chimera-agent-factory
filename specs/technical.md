@@ -415,4 +415,4 @@ CREATE TABLE audit_logs (
 
 **Status**: ✅ Draft Complete  
 **Last Updated**: 2025-02-04  
-**Owner**: FDE Trainee Team
+**Author**: Weldeyohans Nigus
