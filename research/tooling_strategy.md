@@ -41,7 +41,7 @@ MCP servers that assist in development, testing, and maintenance of the Chimera 
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-git"],
       "env": {
-        "GIT_REPO_PATH": "/home/haben/Weldsh/KAM/chimera-agent-factory"
+        "GIT_REPO_PATH": "${PROJECT_ROOT}"
       }
     }
   }
@@ -65,7 +65,7 @@ MCP servers that assist in development, testing, and maintenance of the Chimera 
       "args": ["-y", "@modelcontextprotocol/server-filesystem"],
       "env": {
         "ALLOWED_DIRECTORIES": [
-          "/home/haben/Weldsh/KAM/chimera-agent-factory"
+          "${PROJECT_ROOT}"
         ]
       }
     }
