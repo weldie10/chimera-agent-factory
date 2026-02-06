@@ -59,6 +59,17 @@ class TestTrendFetcherInputValidation:
         input_data = FetchTrendsInput(platforms=["youtube"])
         assert input_data.time_range == "24h"  # Default
         assert input_data.max_results == 50  # Default
+    
+    def test_categories_optional(self):
+        """Test that categories field is optional"""
+        input_data = FetchTrendsInput(
+            platforms=["youtube"],
+            categories=["technology"]
+        )
+        assert input_data.categories == ["technology"]
+        
+        input_data_no_categories = FetchTrendsInput(platforms=["youtube"])
+        assert input_data_no_categories.categories == []  # Default empty list
 
 
 class TestTrendFetcherOutputStructure:

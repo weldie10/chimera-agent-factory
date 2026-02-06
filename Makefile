@@ -23,8 +23,8 @@ setup: ## Install dependencies using uv (or pip if uv not available)
 	fi
 	@echo "✓ Dependencies installed"
 
-test: ## Run tests locally
-	@echo "Running tests..."
+test: ## Run tests locally (these should fail initially - TDD approach)
+	@echo "Running tests (TDD: tests should fail until implementation)..."
 	$(PYTHON) -m pytest tests/ -v
 	@echo "✓ Tests completed"
 
